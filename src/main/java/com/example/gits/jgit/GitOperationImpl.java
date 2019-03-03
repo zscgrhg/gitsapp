@@ -4,15 +4,13 @@ import com.example.gits.ctx.Dao;
 import com.example.gits.spm.dbms.gitsdb.gitrepos.Gitrepos;
 import lombok.SneakyThrows;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.eclipse.jgit.api.CreateBranchCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.ListBranchCommand;
 import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
@@ -133,10 +131,32 @@ public class GitOperationImpl implements GitOperation {
     @SneakyThrows
     public List<DiffEntry> diff(Git git, String oldBranch, String newBranch) {
         Repository repository = git.getRepository();
-        checkLocalBranch(git, oldBranch);
-        checkLocalBranch(git, newBranch);
-        AbstractTreeIterator oldTreeParser = prepareTreeParser(repository, "refs/heads/" + oldBranch);
-        AbstractTreeIterator newTreeParser = prepareTreeParser(repository, "refs/heads/" + newBranch);
+        git.branchCreate()
+                .setForce(true)
+                .setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.TRACK)
+                .setName(oldBranch).setStartPoint("origin/" + oldBranch).call();
+        git.branchCreate()
+                .setForce(true)
+                .setUpstreamMode(CreateBranchCommand.SetupUpstreamMode.TRACK)
+                .setName(newBranch).setStartPoint("origin/" + newBranch).call();
+        ObjectId oldObjectId = repository.exactRef("refs/heads/" + oldBranch).getObjectId();
+        ObjectId newObjectId = repository.exactRef("refs/heads/" + newBranch).getObjectId();
+        AbstractTreeIterator oldTreeParser = prepareTreeParser(repository, oldObjectId);
+        AbstractTreeIterator newTreeParser = prepareTreeParser(repository, newObjectId);
+
+        // then the procelain diff-command returns a list of diff entries
+        List<DiffEntry> diff = git.diff().setOldTree(oldTreeParser).setNewTree(newTreeParser).call();
+        return diff;
+    }
+
+    @SneakyThrows
+    public List<DiffEntry> diffChash(Git git, String oldHash, String newHash) {
+        Repository repository = git.getRepository();
+
+        ObjectId oldObjectId = ObjectId.fromString(oldHash);
+        ObjectId newObjectId = ObjectId.fromString(newHash);
+        AbstractTreeIterator oldTreeParser = prepareTreeParser(repository, oldObjectId);
+        AbstractTreeIterator newTreeParser = prepareTreeParser(repository, newObjectId);
 
         // then the procelain diff-command returns a list of diff entries
         List<DiffEntry> diff = git.diff().setOldTree(oldTreeParser).setNewTree(newTreeParser).call();
@@ -144,28 +164,19 @@ public class GitOperationImpl implements GitOperation {
     }
 
 
-    private void checkLocalBranch(Git git, String branch) throws IOException, GitAPIException {
-        Repository repository = git.getRepository();
-        if (repository.exactRef("refs/heads/" + branch) == null) {
-            // first we need to ensure that the remote branch is visible locally
-            git.branchCreate().setName(branch).setStartPoint("origin/" + branch).call();
-        }
-    }
 
-    private AbstractTreeIterator prepareTreeParser(org.eclipse.jgit.lib.Repository repository, String ref) throws IOException {
+    private AbstractTreeIterator prepareTreeParser(Repository repository, AnyObjectId objectId) throws IOException {
         // from the commit we can build the tree which allows us to construct the TreeParser
-        Ref head = repository.exactRef(ref);
+
         try (RevWalk walk = new RevWalk(repository)) {
-            RevCommit commit = walk.parseCommit(head.getObjectId());
+            RevCommit commit = walk.parseCommit(objectId);
             RevTree tree = walk.parseTree(commit.getTree().getId());
 
             CanonicalTreeParser treeParser = new CanonicalTreeParser();
             try (ObjectReader reader = repository.newObjectReader()) {
                 treeParser.reset(reader, tree.getId());
             }
-
             walk.dispose();
-
             return treeParser;
         }
     }

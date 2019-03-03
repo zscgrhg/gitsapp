@@ -42,6 +42,21 @@
     </table>
     <p th:text="${branchCreated}?:''"></p>
 </form>
+<br/>
+<form action="#" th:action="@{/branch/diff}"  method="get">
+    <table>
+        <tr>
+            <td colspan="2">name: <input type="text" name="b"  />
+                <input type="hidden" readonly name="g" th:value="${repoModel.group}" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="diff" /> <input type="reset" value="Reset" />
+            </td>
+        </tr>
+    </table>
+</form>
 <table id="nav">
     <tr>
         <td><p><a href="#" th:href="@{/}">index</a></p></td>

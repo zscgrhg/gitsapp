@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>diff</title>
+</head>
+<body>
+<h1 th:text="|check updates ${branchName}|"></h1>
+<div >
+    <table style="width: 100%;text-align: left;border-spacing:0px 50px;">
+        <thead>
+        <tr style="font-size: xx-large">
+            <th width="15%" >PROJECT</th>
+            <th>DIFF</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="diffmap : ${groupDiff}">
+            <td th:text="${diffmap.getKey()}" valign="top"></td>
+            <td>
+                <table style="width: 100%;text-align: left" border="1" cellspacing="0" cellpadding="0">
+                    <thead>
+                    <tr style="font-size: medium">
+                        <th width="20%">TYPE</th>
+                        <th width="30%">OLDPATH</th>
+                        <th width="30%">NEWPATH</th>
+                    </tr>
+                    </thead>
+                    <tbody style="color: red;border: black">
+                    <tr th:each="diff : ${diffmap.getValue()}" style="font-size: small">
+                        <td th:text="${diff.getChangeType()}"></td>
+                        <td th:text="${diff.getChangeType().toString()!= 'ADD'}?${diff.getOldPath()}:''"></td>
+                        <td th:text="${diff.getChangeType().toString()!= 'DELETE'} ?${diff.getNewPath()}:''"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

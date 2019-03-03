@@ -18,4 +18,6 @@ public interface GitOperation {
     String revParse(Git git,String ref);
 
     List<DiffEntry> diff(Git git, String oldRef, String newRef);
+
+    List<DiffEntry> diffChash(Git git, String oldHash, String newHash);
 }
