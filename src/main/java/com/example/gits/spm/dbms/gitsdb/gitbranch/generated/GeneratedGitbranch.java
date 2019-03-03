@@ -67,23 +67,23 @@ public interface GeneratedGitbranch {
     );
     /**
      * This Field corresponds to the {@link Gitbranch} field that can be
-     * obtained using the {@link Gitbranch#getChash()} method.
+     * obtained using the {@link Gitbranch#getBaseChash()} method.
      */
-    StringField<Gitbranch, String> CHASH = StringField.create(
-        Identifier.CHASH,
-        Gitbranch::getChash,
-        Gitbranch::setChash,
+    StringField<Gitbranch, String> BASE_CHASH = StringField.create(
+        Identifier.BASE_CHASH,
+        Gitbranch::getBaseChash,
+        Gitbranch::setBaseChash,
         TypeMapper.identity(),
         false
     );
     /**
      * This Field corresponds to the {@link Gitbranch} field that can be
-     * obtained using the {@link Gitbranch#getBase()} method.
+     * obtained using the {@link Gitbranch#getBaseRef()} method.
      */
-    StringField<Gitbranch, String> BASE = StringField.create(
-        Identifier.BASE,
-        Gitbranch::getBase,
-        Gitbranch::setBase,
+    StringField<Gitbranch, String> BASE_REF = StringField.create(
+        Identifier.BASE_REF,
+        Gitbranch::getBaseRef,
+        Gitbranch::setBaseRef,
         TypeMapper.identity(),
         false
     );
@@ -157,20 +157,20 @@ public interface GeneratedGitbranch {
     String getName();
     
     /**
-     * Returns the chash of this Gitbranch. The chash field corresponds to the
-     * database column gits.gits.gitbranch.chash.
+     * Returns the baseChash of this Gitbranch. The baseChash field corresponds
+     * to the database column gits.gits.gitbranch.base_chash.
      * 
-     * @return the chash of this Gitbranch
+     * @return the baseChash of this Gitbranch
      */
-    String getChash();
+    String getBaseChash();
     
     /**
-     * Returns the base of this Gitbranch. The base field corresponds to the
-     * database column gits.gits.gitbranch.base.
+     * Returns the baseRef of this Gitbranch. The baseRef field corresponds to
+     * the database column gits.gits.gitbranch.base_ref.
      * 
-     * @return the base of this Gitbranch
+     * @return the baseRef of this Gitbranch
      */
-    String getBase();
+    String getBaseRef();
     
     /**
      * Returns the baseline of this Gitbranch. The baseline field corresponds to
@@ -232,22 +232,22 @@ public interface GeneratedGitbranch {
     Gitbranch setName(String name);
     
     /**
-     * Sets the chash of this Gitbranch. The chash field corresponds to the
-     * database column gits.gits.gitbranch.chash.
+     * Sets the baseChash of this Gitbranch. The baseChash field corresponds to
+     * the database column gits.gits.gitbranch.base_chash.
      * 
-     * @param chash to set of this Gitbranch
-     * @return      this Gitbranch instance
+     * @param baseChash to set of this Gitbranch
+     * @return          this Gitbranch instance
      */
-    Gitbranch setChash(String chash);
+    Gitbranch setBaseChash(String baseChash);
     
     /**
-     * Sets the base of this Gitbranch. The base field corresponds to the
-     * database column gits.gits.gitbranch.base.
+     * Sets the baseRef of this Gitbranch. The baseRef field corresponds to the
+     * database column gits.gits.gitbranch.base_ref.
      * 
-     * @param base to set of this Gitbranch
-     * @return     this Gitbranch instance
+     * @param baseRef to set of this Gitbranch
+     * @return        this Gitbranch instance
      */
-    Gitbranch setBase(String base);
+    Gitbranch setBaseRef(String baseRef);
     
     /**
      * Sets the baseline of this Gitbranch. The baseline field corresponds to
@@ -299,8 +299,8 @@ public interface GeneratedGitbranch {
         ID            ("id"),
         PROJECT_ID    ("project_id"),
         NAME          ("name"),
-        CHASH         ("chash"),
-        BASE          ("base"),
+        BASE_CHASH    ("base_chash"),
+        BASE_REF      ("base_ref"),
         BASELINE      ("baseline"),
         CREATION_TIME ("creation_time"),
         UPDATE_TIME   ("update_time"),

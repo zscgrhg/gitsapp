@@ -13,21 +13,21 @@
 <table style="width: 100%;text-align: left">
     <thead>
     <tr>
-        <th width="10%">ID</th>
-        <th width="10%">NAME</th>
-        <th width="25%">CHASH</th>
-        <th width="10%">BASE</th>
-        <th width="15%">CREATION TIME</th>
-        <th width="15%">CREATION TIME</th>
-        <th width="15%">UPDATE TIME</th>
+        <th width="5%">ID</th>
+        <th width="8%">NAME</th>
+        <th width="14%">BASEREF</th>
+        <th width="27%">BASECHASH</th>
+        <th width="12%">CREATION TIME</th>
+        <th width="12%">CREATION TIME</th>
+        <th width="12%">UPDATE TIME</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="branch : ${branchList}">
         <td th:text="${branch.id}"></td>
         <td th:text="${branch.name}"></td>
-        <td th:text="${branch.chash}"></td>
-        <td th:text="${branch.base}"></td>
+        <td th:text="${branch.baseRef}"></td>
+        <td th:text="${branch.baseChash}"></td>
         <td th:text="${#temporals.format(branch.baseline, 'yyyy-MM-dd HH:mm:ss')}"></td>
         <td th:text="${#temporals.format(branch.creationTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
         <td th:text="${#temporals.format(branch.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>

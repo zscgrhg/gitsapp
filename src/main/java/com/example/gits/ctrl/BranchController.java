@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("branch")
 public class BranchController {
-    ForkJoinPool FJP=new ForkJoinPool(16,new GitsForkJoinWorkerThreadFactory(),null,false);
+    ForkJoinPool FJP = new ForkJoinPool(16, new GitsForkJoinWorkerThreadFactory(), null, false);
     @Autowired
     Dao dao;
     @Autowired
@@ -38,23 +38,28 @@ public class BranchController {
 
     @PostMapping(value = {"/create"})
     @SneakyThrows
-    public String createBranch(@RequestParam("b") String branch, @RequestParam("g") String group,RedirectAttributes redirectAttributes) {
-        final CountDownLatch cdl=new CountDownLatch(1);
-        Throwable[] throwables=new Throwable[1];
-        FJP.execute(()->{
+    public String createBranch(@RequestParam("b") String branch,
+                               @RequestParam("s") String startRef
+            , @RequestParam("g") String group, RedirectAttributes redirectAttributes) {
+        final CountDownLatch cdl = new CountDownLatch(1);
+        String start = "refs/remotes/origin/"
+                + Optional.ofNullable(startRef).filter(s -> !s.isEmpty()).orElse("master");
+        Throwable[] throwables = new Throwable[1];
+        FJP.execute(() -> {
             try {
-                branchService.createBranch(group,branch);
-            }catch (Throwable t){
-                throwables[0]=t;
-            }finally {
+
+                branchService.createRemoteBranch(group, start, branch);
+            } catch (Throwable t) {
+                throwables[0] = t;
+            } finally {
                 cdl.countDown();
             }
         });
         cdl.await();
-        if(throwables[0]!=null){
-            redirectAttributes.addFlashAttribute("branchCreated",branch+" created failed,caused by:"+throwables[0].getMessage());
-        }else {
-            redirectAttributes.addFlashAttribute("branchCreated",branch+" created successfully.");
+        if (throwables[0] != null) {
+            redirectAttributes.addFlashAttribute("branchCreated", branch + " created failed,caused by:" + throwables[0].getMessage());
+        } else {
+            redirectAttributes.addFlashAttribute("branchCreated", branch + " created successfully.");
         }
 
         return "redirect:/repo/list/" + group;

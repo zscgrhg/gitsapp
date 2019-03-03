@@ -18,6 +18,7 @@ import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.transport.FetchResult;
+import org.eclipse.jgit.transport.PushResult;
 import org.eclipse.jgit.transport.RefSpec;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
@@ -58,7 +59,9 @@ public class GitOperationImpl implements GitOperation {
                         .findGitDir() // scan up the file system tree
                         .build();
                 Git git = new Git(r);
-                FetchResult result = git.fetch().setCheckFetchedObjects(true)
+                FetchResult result = git.fetch()
+                        .setForceUpdate(true)
+                        .setCheckFetchedObjects(true)
                         .setTransportConfigCallback(SshTransportConfigCallback.INSTANCE).call();
                 return git;
             }
@@ -91,22 +94,22 @@ public class GitOperationImpl implements GitOperation {
     @SneakyThrows
     public void gitBranchPush(Git git, String source, String dest) {
 
-        List<Ref> call = git.branchList().setListMode(ListBranchCommand.ListMode.REMOTE).call();
-        String name = dest.replaceFirst("^.*/","");
-        Optional<Ref> first = call.stream().filter(c ->
-                name.equals(c.getName().replaceFirst("^.*/",""))
-        ).findFirst();
-        if(!first.isPresent()){
-
-        }else {
-
-        }
+//        List<Ref> call = git.branchList().setListMode(ListBranchCommand.ListMode.REMOTE).call();
+//        String name = dest.replaceFirst("^.*/","");
+//        Optional<Ref> first = call.stream().filter(c ->
+//                name.equals(c.getName().replaceFirst("^.*/",""))
+//        ).findFirst();
+//        if(!first.isPresent()){
+//
+//        }else {
+//
+//        }
         PushCommand pushCommand = git.push();
         pushCommand.setTransportConfigCallback(SshTransportConfigCallback.INSTANCE);
         pushCommand.setRemote("origin");
         pushCommand.setForce(true);
         pushCommand.setRefSpecs(new RefSpec().setSourceDestination(source, dest));
-        pushCommand.call();
+        Iterable<PushResult> pushResults = pushCommand.call();
     }
 
     @Override

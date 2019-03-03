@@ -24,8 +24,8 @@ public abstract class GeneratedGitbranchImpl implements Gitbranch {
     private long id;
     private long projectId;
     private String name;
-    private String chash;
-    private String base;
+    private String baseChash;
+    private String baseRef;
     private LocalDateTime baseline;
     private LocalDateTime creationTime;
     private LocalDateTime updateTime;
@@ -49,13 +49,13 @@ public abstract class GeneratedGitbranchImpl implements Gitbranch {
     }
     
     @Override
-    public String getChash() {
-        return chash;
+    public String getBaseChash() {
+        return baseChash;
     }
     
     @Override
-    public String getBase() {
-        return base;
+    public String getBaseRef() {
+        return baseRef;
     }
     
     @Override
@@ -97,14 +97,14 @@ public abstract class GeneratedGitbranchImpl implements Gitbranch {
     }
     
     @Override
-    public Gitbranch setChash(String chash) {
-        this.chash = chash;
+    public Gitbranch setBaseChash(String baseChash) {
+        this.baseChash = baseChash;
         return this;
     }
     
     @Override
-    public Gitbranch setBase(String base) {
-        this.base = base;
+    public Gitbranch setBaseRef(String baseRef) {
+        this.baseRef = baseRef;
         return this;
     }
     
@@ -143,8 +143,8 @@ public abstract class GeneratedGitbranchImpl implements Gitbranch {
         sj.add("id = "           + Objects.toString(getId()));
         sj.add("projectId = "    + Objects.toString(getProjectId()));
         sj.add("name = "         + Objects.toString(getName()));
-        sj.add("chash = "        + Objects.toString(getChash()));
-        sj.add("base = "         + Objects.toString(getBase()));
+        sj.add("baseChash = "    + Objects.toString(getBaseChash()));
+        sj.add("baseRef = "      + Objects.toString(getBaseRef()));
         sj.add("baseline = "     + Objects.toString(getBaseline()));
         sj.add("creationTime = " + Objects.toString(getCreationTime()));
         sj.add("updateTime = "   + Objects.toString(getUpdateTime()));
@@ -160,8 +160,8 @@ public abstract class GeneratedGitbranchImpl implements Gitbranch {
         if (this.getId() != thatGitbranch.getId()) { return false; }
         if (this.getProjectId() != thatGitbranch.getProjectId()) { return false; }
         if (!Objects.equals(this.getName(), thatGitbranch.getName())) { return false; }
-        if (!Objects.equals(this.getChash(), thatGitbranch.getChash())) { return false; }
-        if (!Objects.equals(this.getBase(), thatGitbranch.getBase())) { return false; }
+        if (!Objects.equals(this.getBaseChash(), thatGitbranch.getBaseChash())) { return false; }
+        if (!Objects.equals(this.getBaseRef(), thatGitbranch.getBaseRef())) { return false; }
         if (!Objects.equals(this.getBaseline(), thatGitbranch.getBaseline())) { return false; }
         if (!Objects.equals(this.getCreationTime(), thatGitbranch.getCreationTime())) { return false; }
         if (!Objects.equals(this.getUpdateTime(), thatGitbranch.getUpdateTime())) { return false; }
@@ -175,8 +175,8 @@ public abstract class GeneratedGitbranchImpl implements Gitbranch {
         hash = 31 * hash + Long.hashCode(getId());
         hash = 31 * hash + Long.hashCode(getProjectId());
         hash = 31 * hash + Objects.hashCode(getName());
-        hash = 31 * hash + Objects.hashCode(getChash());
-        hash = 31 * hash + Objects.hashCode(getBase());
+        hash = 31 * hash + Objects.hashCode(getBaseChash());
+        hash = 31 * hash + Objects.hashCode(getBaseRef());
         hash = 31 * hash + Objects.hashCode(getBaseline());
         hash = 31 * hash + Objects.hashCode(getCreationTime());
         hash = 31 * hash + Objects.hashCode(getUpdateTime());

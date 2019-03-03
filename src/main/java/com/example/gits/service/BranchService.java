@@ -1,5 +1,5 @@
 package com.example.gits.service;
 
 public interface BranchService {
-     void createBranch(String g,String b);
+     void createRemoteBranch(String g, String startRef,String b);
 }
