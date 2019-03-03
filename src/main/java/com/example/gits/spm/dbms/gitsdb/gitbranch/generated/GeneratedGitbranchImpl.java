@@ -5,7 +5,6 @@ import com.example.gits.spm.dbms.gitsdb.gitrepos.Gitrepos;
 import com.speedment.common.annotation.GeneratedCode;
 import com.speedment.runtime.core.manager.Manager;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -26,13 +25,11 @@ public abstract class GeneratedGitbranchImpl implements Gitbranch {
     private long projectId;
     private String name;
     private String chash;
-    private String tag;
-    private String message;
+    private String base;
+    private LocalDateTime baseline;
     private LocalDateTime creationTime;
     private LocalDateTime updateTime;
     private boolean deleted;
-    private String base;
-    private Timestamp baseline;
     
     protected GeneratedGitbranchImpl() {}
     
@@ -57,13 +54,13 @@ public abstract class GeneratedGitbranchImpl implements Gitbranch {
     }
     
     @Override
-    public String getTag() {
-        return tag;
+    public String getBase() {
+        return base;
     }
     
     @Override
-    public String getMessage() {
-        return message;
+    public LocalDateTime getBaseline() {
+        return baseline;
     }
     
     @Override
@@ -79,16 +76,6 @@ public abstract class GeneratedGitbranchImpl implements Gitbranch {
     @Override
     public boolean getDeleted() {
         return deleted;
-    }
-    
-    @Override
-    public String getBase() {
-        return base;
-    }
-    
-    @Override
-    public Timestamp getBaseline() {
-        return baseline;
     }
     
     @Override
@@ -116,14 +103,14 @@ public abstract class GeneratedGitbranchImpl implements Gitbranch {
     }
     
     @Override
-    public Gitbranch setTag(String tag) {
-        this.tag = tag;
+    public Gitbranch setBase(String base) {
+        this.base = base;
         return this;
     }
     
     @Override
-    public Gitbranch setMessage(String message) {
-        this.message = message;
+    public Gitbranch setBaseline(LocalDateTime baseline) {
+        this.baseline = baseline;
         return this;
     }
     
@@ -146,18 +133,6 @@ public abstract class GeneratedGitbranchImpl implements Gitbranch {
     }
     
     @Override
-    public Gitbranch setBase(String base) {
-        this.base = base;
-        return this;
-    }
-    
-    @Override
-    public Gitbranch setBaseline(Timestamp baseline) {
-        this.baseline = baseline;
-        return this;
-    }
-    
-    @Override
     public Gitrepos findProjectId(Manager<Gitrepos> foreignManager) {
         return foreignManager.stream().filter(Gitrepos.ID.equal(getProjectId())).findAny().orElse(null);
     }
@@ -169,13 +144,11 @@ public abstract class GeneratedGitbranchImpl implements Gitbranch {
         sj.add("projectId = "    + Objects.toString(getProjectId()));
         sj.add("name = "         + Objects.toString(getName()));
         sj.add("chash = "        + Objects.toString(getChash()));
-        sj.add("tag = "          + Objects.toString(getTag()));
-        sj.add("message = "      + Objects.toString(getMessage()));
+        sj.add("base = "         + Objects.toString(getBase()));
+        sj.add("baseline = "     + Objects.toString(getBaseline()));
         sj.add("creationTime = " + Objects.toString(getCreationTime()));
         sj.add("updateTime = "   + Objects.toString(getUpdateTime()));
         sj.add("deleted = "      + Objects.toString(getDeleted()));
-        sj.add("base = "         + Objects.toString(getBase()));
-        sj.add("baseline = "     + Objects.toString(getBaseline()));
         return "GitbranchImpl " + sj.toString();
     }
     
@@ -188,13 +161,11 @@ public abstract class GeneratedGitbranchImpl implements Gitbranch {
         if (this.getProjectId() != thatGitbranch.getProjectId()) { return false; }
         if (!Objects.equals(this.getName(), thatGitbranch.getName())) { return false; }
         if (!Objects.equals(this.getChash(), thatGitbranch.getChash())) { return false; }
-        if (!Objects.equals(this.getTag(), thatGitbranch.getTag())) { return false; }
-        if (!Objects.equals(this.getMessage(), thatGitbranch.getMessage())) { return false; }
+        if (!Objects.equals(this.getBase(), thatGitbranch.getBase())) { return false; }
+        if (!Objects.equals(this.getBaseline(), thatGitbranch.getBaseline())) { return false; }
         if (!Objects.equals(this.getCreationTime(), thatGitbranch.getCreationTime())) { return false; }
         if (!Objects.equals(this.getUpdateTime(), thatGitbranch.getUpdateTime())) { return false; }
         if (this.getDeleted() != thatGitbranch.getDeleted()) { return false; }
-        if (!Objects.equals(this.getBase(), thatGitbranch.getBase())) { return false; }
-        if (!Objects.equals(this.getBaseline(), thatGitbranch.getBaseline())) { return false; }
         return true;
     }
     
@@ -205,13 +176,11 @@ public abstract class GeneratedGitbranchImpl implements Gitbranch {
         hash = 31 * hash + Long.hashCode(getProjectId());
         hash = 31 * hash + Objects.hashCode(getName());
         hash = 31 * hash + Objects.hashCode(getChash());
-        hash = 31 * hash + Objects.hashCode(getTag());
-        hash = 31 * hash + Objects.hashCode(getMessage());
+        hash = 31 * hash + Objects.hashCode(getBase());
+        hash = 31 * hash + Objects.hashCode(getBaseline());
         hash = 31 * hash + Objects.hashCode(getCreationTime());
         hash = 31 * hash + Objects.hashCode(getUpdateTime());
         hash = 31 * hash + Boolean.hashCode(getDeleted());
-        hash = 31 * hash + Objects.hashCode(getBase());
-        hash = 31 * hash + Objects.hashCode(getBaseline());
         return hash;
     }
 }

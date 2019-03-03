@@ -39,7 +39,7 @@ public class GeneratedGitsMetadata extends AbstractApplicationMetadata {
         Stream.of(
             "{",
             "  \"config\" : {",
-            "    \"appId\" : \"b82d1adc-3520-49fa-a60e-1c97a07c3ca7\",",
+            "    \"appId\" : \"27db581d-ed4c-4488-bfb7-c20ab32f466f\",",
             "    \"companyName\" : \"example\",",
             "    \"dbmses\" : [",
             "      {",
@@ -70,66 +70,59 @@ public class GeneratedGitsMetadata extends AbstractApplicationMetadata {
             "                    \"expanded\" : true,",
             "                    \"id\" : \"id\",",
             "                    \"name\" : \"id\",",
-            "                    \"nameProtected\" : true,",
             "                    \"nullable\" : false,",
-            "                    \"nullableImplementation\" : \"OPTIONAL\",",
             "                    \"ordinalPosition\" : 1,",
             "                    \"typeMapper\" : \"com.speedment.runtime.typemapper.primitive.PrimitiveTypeMapper\"",
             "                  },",
             "                  {",
-            "                    \"autoIncrement\" : false,",
             "                    \"databaseType\" : \"java.lang.Long\",",
             "                    \"enabled\" : true,",
             "                    \"expanded\" : true,",
             "                    \"id\" : \"project_id\",",
             "                    \"name\" : \"project_id\",",
-            "                    \"nameProtected\" : true,",
             "                    \"nullable\" : false,",
-            "                    \"nullableImplementation\" : \"OPTIONAL\",",
             "                    \"ordinalPosition\" : 2,",
             "                    \"typeMapper\" : \"com.speedment.runtime.typemapper.primitive.PrimitiveTypeMapper\"",
             "                  },",
             "                  {",
-            "                    \"autoIncrement\" : false,",
             "                    \"databaseType\" : \"java.lang.String\",",
             "                    \"enabled\" : true,",
             "                    \"expanded\" : true,",
             "                    \"id\" : \"name\",",
             "                    \"name\" : \"name\",",
-            "                    \"nameProtected\" : true,",
             "                    \"nullable\" : false,",
-            "                    \"nullableImplementation\" : \"OPTIONAL\",",
             "                    \"ordinalPosition\" : 3",
             "                  },",
             "                  {",
-            "                    \"autoIncrement\" : false,",
             "                    \"databaseType\" : \"java.lang.String\",",
             "                    \"enabled\" : true,",
             "                    \"expanded\" : true,",
             "                    \"id\" : \"chash\",",
             "                    \"name\" : \"chash\",",
-            "                    \"nameProtected\" : true,",
             "                    \"nullable\" : false,",
-            "                    \"nullableImplementation\" : \"OPTIONAL\",",
             "                    \"ordinalPosition\" : 4",
             "                  },",
             "                  {",
             "                    \"databaseType\" : \"java.lang.String\",",
             "                    \"enabled\" : true,",
             "                    \"expanded\" : true,",
-            "                    \"id\" : \"tag\",",
-            "                    \"name\" : \"tag\",",
+            "                    \"id\" : \"base\",",
+            "                    \"name\" : \"base\",",
             "                    \"nullable\" : false,",
             "                    \"ordinalPosition\" : 5",
             "                  },",
             "                  {",
-            "                    \"databaseType\" : \"java.lang.String\",",
+            "                    \"autoIncrement\" : false,",
+            "                    \"databaseType\" : \"java.sql.Timestamp\",",
             "                    \"enabled\" : true,",
             "                    \"expanded\" : true,",
-            "                    \"id\" : \"message\",",
-            "                    \"name\" : \"message\",",
+            "                    \"id\" : \"baseline\",",
+            "                    \"name\" : \"baseline\",",
+            "                    \"nameProtected\" : true,",
             "                    \"nullable\" : false,",
-            "                    \"ordinalPosition\" : 6",
+            "                    \"nullableImplementation\" : \"OPTIONAL\",",
+            "                    \"ordinalPosition\" : 6,",
+            "                    \"typeMapper\" : \"com.speedment.runtime.typemapper.time.TimestampToLocalDateTimeMapper\"",
             "                  },",
             "                  {",
             "                    \"autoIncrement\" : false,",
@@ -137,19 +130,19 @@ public class GeneratedGitsMetadata extends AbstractApplicationMetadata {
             "                    \"enabled\" : true,",
             "                    \"expanded\" : true,",
             "                    \"id\" : \"creation_time\",",
-            "                    \"name\" : \"creation_time\","
-        ).forEachOrdered(sb::append);
-    }
-    
-    private static void initPart1(StringBuilder sb) {
-        Stream.of(
+            "                    \"name\" : \"creation_time\",",
             "                    \"nameProtected\" : true,",
             "                    \"nullable\" : false,",
             "                    \"nullableImplementation\" : \"OPTIONAL\",",
             "                    \"ordinalPosition\" : 7,",
             "                    \"typeMapper\" : \"com.speedment.runtime.typemapper.time.TimestampToLocalDateTimeMapper\"",
             "                  },",
-            "                  {",
+            "                  {"
+        ).forEachOrdered(sb::append);
+    }
+    
+    private static void initPart1(StringBuilder sb) {
+        Stream.of(
             "                    \"autoIncrement\" : false,",
             "                    \"databaseType\" : \"java.sql.Timestamp\",",
             "                    \"enabled\" : true,",
@@ -174,30 +167,6 @@ public class GeneratedGitsMetadata extends AbstractApplicationMetadata {
             "                    \"nullableImplementation\" : \"OPTIONAL\",",
             "                    \"ordinalPosition\" : 9,",
             "                    \"typeMapper\" : \"com.speedment.runtime.typemapper.bytes.ByteZeroOneToBooleanMapper\"",
-            "                  },",
-            "                  {",
-            "                    \"autoIncrement\" : false,",
-            "                    \"databaseType\" : \"java.lang.String\",",
-            "                    \"enabled\" : true,",
-            "                    \"expanded\" : true,",
-            "                    \"id\" : \"base\",",
-            "                    \"name\" : \"base\",",
-            "                    \"nameProtected\" : true,",
-            "                    \"nullable\" : false,",
-            "                    \"nullableImplementation\" : \"OPTIONAL\",",
-            "                    \"ordinalPosition\" : 10",
-            "                  },",
-            "                  {",
-            "                    \"autoIncrement\" : false,",
-            "                    \"databaseType\" : \"java.sql.Timestamp\",",
-            "                    \"enabled\" : true,",
-            "                    \"expanded\" : true,",
-            "                    \"id\" : \"baseline\",",
-            "                    \"name\" : \"baseline\",",
-            "                    \"nameProtected\" : true,",
-            "                    \"nullable\" : false,",
-            "                    \"nullableImplementation\" : \"OPTIONAL\",",
-            "                    \"ordinalPosition\" : 11",
             "                  }",
             "                ],",
             "                \"enabled\" : true,",
@@ -243,12 +212,7 @@ public class GeneratedGitsMetadata extends AbstractApplicationMetadata {
             "                        \"orderType\" : \"ASC\",",
             "                        \"ordinalPosition\" : 2",
             "                      }",
-            "                    ],"
-        ).forEachOrdered(sb::append);
-    }
-    
-    private static void initPart2(StringBuilder sb) {
-        Stream.of(
+            "                    ],",
             "                    \"name\" : \"PRIMARY\",",
             "                    \"unique\" : true",
             "                  },",
@@ -278,15 +242,18 @@ public class GeneratedGitsMetadata extends AbstractApplicationMetadata {
             "                    \"expanded\" : true,",
             "                    \"id\" : \"id\",",
             "                    \"name\" : \"id\",",
-            "                    \"nameProtected\" : false,",
             "                    \"ordinalPosition\" : 1",
-            "                  },",
+            "                  },"
+        ).forEachOrdered(sb::append);
+    }
+    
+    private static void initPart2(StringBuilder sb) {
+        Stream.of(
             "                  {",
             "                    \"enabled\" : true,",
             "                    \"expanded\" : true,",
             "                    \"id\" : \"project_id\",",
             "                    \"name\" : \"project_id\",",
-            "                    \"nameProtected\" : false,",
             "                    \"ordinalPosition\" : 2",
             "                  }",
             "                ]",
@@ -325,15 +292,12 @@ public class GeneratedGitsMetadata extends AbstractApplicationMetadata {
             "                    \"ordinalPosition\" : 3",
             "                  },",
             "                  {",
-            "                    \"autoIncrement\" : false,",
             "                    \"databaseType\" : \"java.lang.String\",",
             "                    \"enabled\" : true,",
             "                    \"expanded\" : true,",
             "                    \"id\" : \"repository\",",
             "                    \"name\" : \"repository\",",
-            "                    \"nameProtected\" : true,",
             "                    \"nullable\" : false,",
-            "                    \"nullableImplementation\" : \"OPTIONAL\",",
             "                    \"ordinalPosition\" : 4",
             "                  },",
             "                  {",
@@ -349,12 +313,7 @@ public class GeneratedGitsMetadata extends AbstractApplicationMetadata {
             "                    \"ordinalPosition\" : 5,",
             "                    \"typeMapper\" : \"com.speedment.runtime.typemapper.time.TimestampToLocalDateTimeMapper\"",
             "                  },",
-            "                  {"
-        ).forEachOrdered(sb::append);
-    }
-    
-    private static void initPart3(StringBuilder sb) {
-        Stream.of(
+            "                  {",
             "                    \"autoIncrement\" : false,",
             "                    \"databaseType\" : \"java.sql.Timestamp\",",
             "                    \"enabled\" : true,",
@@ -390,7 +349,12 @@ public class GeneratedGitsMetadata extends AbstractApplicationMetadata {
             "                    \"expanded\" : false,",
             "                    \"id\" : \"PRIMARY\",",
             "                    \"indexColumns\" : [",
-            "                      {",
+            "                      {"
+        ).forEachOrdered(sb::append);
+    }
+    
+    private static void initPart3(StringBuilder sb) {
+        Stream.of(
             "                        \"expanded\" : true,",
             "                        \"id\" : \"id\",",
             "                        \"name\" : \"id\",",

@@ -31,6 +31,7 @@ import static com.speedment.common.injector.State.RESOLVED;
 public abstract class GeneratedGitbranchSqlAdapter implements SqlAdapter<Gitbranch> {
     
     private final TableIdentifier<Gitbranch> tableIdentifier;
+    private SqlTypeMapperHelper<Timestamp, LocalDateTime> baselineHelper;
     private SqlTypeMapperHelper<Timestamp, LocalDateTime> creationTimeHelper;
     private SqlTypeMapperHelper<Timestamp, LocalDateTime> updateTimeHelper;
     private SqlTypeMapperHelper<Byte, Boolean> deletedHelper;
@@ -45,13 +46,11 @@ public abstract class GeneratedGitbranchSqlAdapter implements SqlAdapter<Gitbran
             .setProjectId(    resultSet.getLong(2 + offset))
             .setName(         resultSet.getString(3 + offset))
             .setChash(        resultSet.getString(4 + offset))
-            .setTag(          resultSet.getString(5 + offset))
-            .setMessage(      resultSet.getString(6 + offset))
+            .setBase(         resultSet.getString(5 + offset))
+            .setBaseline(     baselineHelper.apply(resultSet.getTimestamp(6 + offset)))
             .setCreationTime( creationTimeHelper.apply(resultSet.getTimestamp(7 + offset)))
             .setUpdateTime(   updateTimeHelper.apply(resultSet.getTimestamp(8 + offset)))
             .setDeleted(      deletedHelper.apply(resultSet.getByte(9 + offset)))
-            .setBase(         resultSet.getString(10 + offset))
-            .setBaseline(     resultSet.getTimestamp(11 + offset))
             ;
     }
     
@@ -77,6 +76,7 @@ public abstract class GeneratedGitbranchSqlAdapter implements SqlAdapter<Gitbran
     @ExecuteBefore(RESOLVED)
     void createHelpers(ProjectComponent projectComponent) {
         final Project project = projectComponent.getProject();
+        baselineHelper = SqlTypeMapperHelper.create(project, Gitbranch.BASELINE, Gitbranch.class);
         creationTimeHelper = SqlTypeMapperHelper.create(project, Gitbranch.CREATION_TIME, Gitbranch.class);
         updateTimeHelper = SqlTypeMapperHelper.create(project, Gitbranch.UPDATE_TIME, Gitbranch.class);
         deletedHelper = SqlTypeMapperHelper.create(project, Gitbranch.DELETED, Gitbranch.class);

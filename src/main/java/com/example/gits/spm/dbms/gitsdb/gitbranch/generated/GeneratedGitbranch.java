@@ -78,24 +78,24 @@ public interface GeneratedGitbranch {
     );
     /**
      * This Field corresponds to the {@link Gitbranch} field that can be
-     * obtained using the {@link Gitbranch#getTag()} method.
+     * obtained using the {@link Gitbranch#getBase()} method.
      */
-    StringField<Gitbranch, String> TAG = StringField.create(
-        Identifier.TAG,
-        Gitbranch::getTag,
-        Gitbranch::setTag,
+    StringField<Gitbranch, String> BASE = StringField.create(
+        Identifier.BASE,
+        Gitbranch::getBase,
+        Gitbranch::setBase,
         TypeMapper.identity(),
         false
     );
     /**
      * This Field corresponds to the {@link Gitbranch} field that can be
-     * obtained using the {@link Gitbranch#getMessage()} method.
+     * obtained using the {@link Gitbranch#getBaseline()} method.
      */
-    StringField<Gitbranch, String> MESSAGE = StringField.create(
-        Identifier.MESSAGE,
-        Gitbranch::getMessage,
-        Gitbranch::setMessage,
-        TypeMapper.identity(),
+    ComparableField<Gitbranch, Timestamp, LocalDateTime> BASELINE = ComparableField.create(
+        Identifier.BASELINE,
+        Gitbranch::getBaseline,
+        Gitbranch::setBaseline,
+        new TimestampToLocalDateTimeMapper(),
         false
     );
     /**
@@ -129,28 +129,6 @@ public interface GeneratedGitbranch {
         Gitbranch::getDeleted,
         Gitbranch::setDeleted,
         new ByteZeroOneToBooleanMapper(),
-        false
-    );
-    /**
-     * This Field corresponds to the {@link Gitbranch} field that can be
-     * obtained using the {@link Gitbranch#getBase()} method.
-     */
-    StringField<Gitbranch, String> BASE = StringField.create(
-        Identifier.BASE,
-        Gitbranch::getBase,
-        Gitbranch::setBase,
-        TypeMapper.identity(),
-        false
-    );
-    /**
-     * This Field corresponds to the {@link Gitbranch} field that can be
-     * obtained using the {@link Gitbranch#getBaseline()} method.
-     */
-    ComparableField<Gitbranch, Timestamp, Timestamp> BASELINE = ComparableField.create(
-        Identifier.BASELINE,
-        Gitbranch::getBaseline,
-        Gitbranch::setBaseline,
-        TypeMapper.identity(),
         false
     );
     
@@ -187,20 +165,20 @@ public interface GeneratedGitbranch {
     String getChash();
     
     /**
-     * Returns the tag of this Gitbranch. The tag field corresponds to the
-     * database column gits.gits.gitbranch.tag.
+     * Returns the base of this Gitbranch. The base field corresponds to the
+     * database column gits.gits.gitbranch.base.
      * 
-     * @return the tag of this Gitbranch
+     * @return the base of this Gitbranch
      */
-    String getTag();
+    String getBase();
     
     /**
-     * Returns the message of this Gitbranch. The message field corresponds to
-     * the database column gits.gits.gitbranch.message.
+     * Returns the baseline of this Gitbranch. The baseline field corresponds to
+     * the database column gits.gits.gitbranch.baseline.
      * 
-     * @return the message of this Gitbranch
+     * @return the baseline of this Gitbranch
      */
-    String getMessage();
+    LocalDateTime getBaseline();
     
     /**
      * Returns the creationTime of this Gitbranch. The creationTime field
@@ -225,22 +203,6 @@ public interface GeneratedGitbranch {
      * @return the deleted of this Gitbranch
      */
     boolean getDeleted();
-    
-    /**
-     * Returns the base of this Gitbranch. The base field corresponds to the
-     * database column gits.gits.gitbranch.base.
-     * 
-     * @return the base of this Gitbranch
-     */
-    String getBase();
-    
-    /**
-     * Returns the baseline of this Gitbranch. The baseline field corresponds to
-     * the database column gits.gits.gitbranch.baseline.
-     * 
-     * @return the baseline of this Gitbranch
-     */
-    Timestamp getBaseline();
     
     /**
      * Sets the id of this Gitbranch. The id field corresponds to the database
@@ -279,22 +241,22 @@ public interface GeneratedGitbranch {
     Gitbranch setChash(String chash);
     
     /**
-     * Sets the tag of this Gitbranch. The tag field corresponds to the database
-     * column gits.gits.gitbranch.tag.
+     * Sets the base of this Gitbranch. The base field corresponds to the
+     * database column gits.gits.gitbranch.base.
      * 
-     * @param tag to set of this Gitbranch
-     * @return    this Gitbranch instance
+     * @param base to set of this Gitbranch
+     * @return     this Gitbranch instance
      */
-    Gitbranch setTag(String tag);
+    Gitbranch setBase(String base);
     
     /**
-     * Sets the message of this Gitbranch. The message field corresponds to the
-     * database column gits.gits.gitbranch.message.
+     * Sets the baseline of this Gitbranch. The baseline field corresponds to
+     * the database column gits.gits.gitbranch.baseline.
      * 
-     * @param message to set of this Gitbranch
-     * @return        this Gitbranch instance
+     * @param baseline to set of this Gitbranch
+     * @return         this Gitbranch instance
      */
-    Gitbranch setMessage(String message);
+    Gitbranch setBaseline(LocalDateTime baseline);
     
     /**
      * Sets the creationTime of this Gitbranch. The creationTime field
@@ -324,24 +286,6 @@ public interface GeneratedGitbranch {
     Gitbranch setDeleted(boolean deleted);
     
     /**
-     * Sets the base of this Gitbranch. The base field corresponds to the
-     * database column gits.gits.gitbranch.base.
-     * 
-     * @param base to set of this Gitbranch
-     * @return     this Gitbranch instance
-     */
-    Gitbranch setBase(String base);
-    
-    /**
-     * Sets the baseline of this Gitbranch. The baseline field corresponds to
-     * the database column gits.gits.gitbranch.baseline.
-     * 
-     * @param baseline to set of this Gitbranch
-     * @return         this Gitbranch instance
-     */
-    Gitbranch setBaseline(Timestamp baseline);
-    
-    /**
      * Queries the specified manager for the referenced Gitrepos. If no such
      * Gitrepos exists, an {@code NullPointerException} will be thrown.
      * 
@@ -356,13 +300,11 @@ public interface GeneratedGitbranch {
         PROJECT_ID    ("project_id"),
         NAME          ("name"),
         CHASH         ("chash"),
-        TAG           ("tag"),
-        MESSAGE       ("message"),
+        BASE          ("base"),
+        BASELINE      ("baseline"),
         CREATION_TIME ("creation_time"),
         UPDATE_TIME   ("update_time"),
-        DELETED       ("deleted"),
-        BASE          ("base"),
-        BASELINE      ("baseline");
+        DELETED       ("deleted");
         
         private final String columnId;
         private final TableIdentifier<Gitbranch> tableIdentifier;

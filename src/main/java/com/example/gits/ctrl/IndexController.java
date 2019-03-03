@@ -2,6 +2,7 @@ package com.example.gits.ctrl;
 
 import com.example.gits.ctx.Dao;
 import com.example.gits.spm.dbms.gitsdb.gitrepos.Gitrepos;
+import com.example.gits.spm.dbms.gitsdb.gitrepos.GitreposImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,7 @@ public class IndexController {
                 .distinct()
                 .collect(Collectors.toList());
         model.addAttribute("rGroupList", rGroupList);
+        model.addAttribute("repoModel", new GitreposImpl());
         return "index";
     }
 }

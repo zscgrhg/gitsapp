@@ -29,13 +29,11 @@ public interface GeneratedGitbranchManager extends Manager<Gitbranch> {
         Gitbranch.PROJECT_ID,
         Gitbranch.NAME,
         Gitbranch.CHASH,
-        Gitbranch.TAG,
-        Gitbranch.MESSAGE,
+        Gitbranch.BASE,
+        Gitbranch.BASELINE,
         Gitbranch.CREATION_TIME,
         Gitbranch.UPDATE_TIME,
-        Gitbranch.DELETED,
-        Gitbranch.BASE,
-        Gitbranch.BASELINE
+        Gitbranch.DELETED
     ));
     
     @Override

@@ -13,5 +13,9 @@ public interface GitOperation {
 
     void gitBranchPush(Git git, String source, String dest);
 
+    void createBranch(Git git, String start, String branchName);
+
+    String revParse(Git git,String ref);
+
     List<DiffEntry> diff(Git git, String oldRef, String newRef);
 }

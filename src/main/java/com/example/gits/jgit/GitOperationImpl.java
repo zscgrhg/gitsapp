@@ -1,12 +1,15 @@
 package com.example.gits.jgit;
 
+import com.example.gits.ctx.Dao;
 import com.example.gits.spm.dbms.gitsdb.gitrepos.Gitrepos;
 import lombok.SneakyThrows;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.ListBranchCommand;
 import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
+import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectReader;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
@@ -18,14 +21,20 @@ import org.eclipse.jgit.transport.FetchResult;
 import org.eclipse.jgit.transport.RefSpec;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
+@Component
 public class GitOperationImpl implements GitOperation {
     public static final File workspace = new File("./workspace");
-
+    @Autowired
+    Dao dao;
     static {
         if (!workspace.exists()) {
             workspace.mkdirs();
@@ -58,6 +67,7 @@ public class GitOperationImpl implements GitOperation {
         Git git = Git
                 .cloneRepository()
                 .setDirectory(workDir)
+                .setCloneAllBranches(true)
                 .setNoCheckout(true)
                 .setTransportConfigCallback(SshTransportConfigCallback.INSTANCE)
                 .setURI(repository.getRepository())
@@ -80,11 +90,41 @@ public class GitOperationImpl implements GitOperation {
     @Override
     @SneakyThrows
     public void gitBranchPush(Git git, String source, String dest) {
+
+        List<Ref> call = git.branchList().setListMode(ListBranchCommand.ListMode.REMOTE).call();
+        String name = dest.replaceFirst("^.*/","");
+        Optional<Ref> first = call.stream().filter(c ->
+                name.equals(c.getName().replaceFirst("^.*/",""))
+        ).findFirst();
+        if(!first.isPresent()){
+
+        }else {
+
+        }
         PushCommand pushCommand = git.push();
         pushCommand.setTransportConfigCallback(SshTransportConfigCallback.INSTANCE);
         pushCommand.setRemote("origin");
+        pushCommand.setForce(true);
         pushCommand.setRefSpecs(new RefSpec().setSourceDestination(source, dest));
         pushCommand.call();
+    }
+
+    @Override
+    @SneakyThrows
+    public void createBranch(Git git, String start, String branchName) {
+        Ref call = git.branchCreate()
+                .setStartPoint(start)
+                .setName(branchName)
+                .setForce(true)
+                .call();
+        System.out.println(ObjectId.toString(call.getObjectId()));
+    }
+
+    @Override
+    @SneakyThrows
+    public String revParse(Git git, String ref) {
+        Ref refObj = git.getRepository().exactRef(ref);
+        return ObjectId.toString(refObj.getObjectId());
     }
 
     @SneakyThrows

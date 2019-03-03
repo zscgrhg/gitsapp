@@ -17,39 +17,29 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("repo")
 public class RepoController {
-    public static final String LIST = "repo/list";
-    public static final String CREATE = "repo/create";
-    public static final String SUCCESS = "repo/success";
-    public static final String REDIRECT_SUCCESS = "redirect:/repo/success";
+
     @Autowired
     Dao dao;
 
     @GetMapping(value = {"/list/{group}"})
-    public String list(Model model,@PathVariable("group") String group) {
+    public String list(Model model, @PathVariable("group") String group) {
         List<Gitrepos> repoList = dao.REPOSITORY.stream()
                 .filter(Gitrepos.GROUP.equalIgnoreCase(group))
                 .collect(Collectors.toList());
-
+        GitreposImpl g = new GitreposImpl();
+        g.setGroup(group);
+        model.addAttribute("repoModel", g);
         model.addAttribute("repoList", repoList);
-        return LIST;
+        return "repo/list";
     }
 
-    @GetMapping(value = {"/create"})
-    public String create(Model model) {
-        model.addAttribute("repoModel", new GitreposImpl());
-        return CREATE;
-    }
 
     @PostMapping(value = {"/create"})
     public String createRepo(@ModelAttribute GitreposImpl repo, RedirectAttributes redirectAttributes) {
         repo.setCreationTime(LocalDateTime.now())
                 .setUpdateTime(LocalDateTime.now());
         Gitrepos saved = dao.REPOSITORY.persist(repo);
-        return REDIRECT_SUCCESS;
+        return "redirect:/repo/list/" + repo.getGroup();
     }
-    @GetMapping(value = {"/success"})
-    public String success() {
 
-        return SUCCESS;
-    }
 }

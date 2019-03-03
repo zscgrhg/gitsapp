@@ -10,6 +10,29 @@
     <title>branch list</title>
 </head>
 <body>
-
+<table style="width: 100%;text-align: left">
+    <thead>
+    <tr>
+        <th width="10%">ID</th>
+        <th width="10%">NAME</th>
+        <th width="25%">CHASH</th>
+        <th width="10%">BASE</th>
+        <th width="15%">CREATION TIME</th>
+        <th width="15%">CREATION TIME</th>
+        <th width="15%">UPDATE TIME</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="branch : ${branchList}">
+        <td th:text="${branch.id}"></td>
+        <td th:text="${branch.name}"></td>
+        <td th:text="${branch.chash}"></td>
+        <td th:text="${branch.base}"></td>
+        <td th:text="${#temporals.format(branch.baseline, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${#temporals.format(branch.creationTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${#temporals.format(branch.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

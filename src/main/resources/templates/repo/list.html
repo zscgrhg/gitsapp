@@ -10,14 +10,43 @@
     <title>repo list</title>
 </head>
 <body>
-<h1>Product list</h1>
+<form action="#" th:action="@{/repo/create}" th:object="${repoModel}" method="post">
+    <table>
+        <tr>
+            <td>name: <input type="text" th:field="*{name}" /><input type="hidden" readonly th:field="*{group}" /></td>
+
+            <td>repository: <input type="text" th:field="*{repository}" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Add" /> <input type="reset" value="Reset" />
+            </td>
+        </tr>
+    </table>
+</form>
+<br/>
+<form action="#" th:action="@{/branch/create}"  method="post">
+    <table>
+        <tr>
+            <td>name: <input type="text" name="b"  />
+                <input type="hidden" readonly name="g" th:value="${repoModel.group}" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="create branch" /> <input type="reset" value="Reset" />
+            </td>
+        </tr>
+    </table>
+    <p th:text="${branchCreated}?:''"></p>
+</form>
 <table id="nav">
     <tr>
         <td><p><a href="#" th:href="@{/}">index</a></p></td>
-        <td><p><a href="create.html" th:href="@{/repo/create}">add</a></p></td>
-        <td><p><a href="create.html" th:href="@{/branch/create/{group}(group=${})}">add</a></p></td>
     </tr>
 </table>
+<h3 th:text="|group of  ${repoModel.group}|"></h3>
+
 
 <table style="width: 100%;text-align: left">
     <thead>
@@ -28,6 +57,7 @@
         <th>REPOSITORY</th>
         <th width="15%">CREATION TIME</th>
         <th width="15%">UPDATE TIME</th>
+        <th width="10%">branch</th>
     </tr>
     </thead>
     <tbody>
@@ -38,6 +68,7 @@
         <td th:text="${repo.repository}"></td>
         <td th:text="${#temporals.format(repo.creationTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
         <td th:text="${#temporals.format(repo.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td><a href="#" th:href="@{/branch/list/{projectId}(projectId=${repo.id})}" >查看分支</a></td>
     </tr>
     </tbody>
 </table>
