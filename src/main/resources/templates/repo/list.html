@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        #nav * {
+            padding-right: 10px;
+        }
+    </style>
+    <title>repo list</title>
+</head>
+<body>
+<h1>Product list</h1>
+<table id="nav">
+    <tr>
+        <td><p><a href="#" th:href="@{/}">index</a></p></td>
+        <td><p><a href="create.html" th:href="@{/repo/create}">add</a></p></td>
+        <td><p><a href="create.html" th:href="@{/branch/create/{group}(group=${})}">add</a></p></td>
+    </tr>
+</table>
+
+<table style="width: 100%;text-align: left">
+    <thead>
+    <tr>
+        <th width="10%">ID</th>
+        <th width="10%">GROUP</th>
+        <th width="10%">NAME</th>
+        <th>REPOSITORY</th>
+        <th width="15%">CREATION TIME</th>
+        <th width="15%">UPDATE TIME</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="repo : ${repoList}">
+        <td th:text="${repo.id}"></td>
+        <td th:text="${repo.group}"></td>
+        <td th:text="${repo.name}"></td>
+        <td th:text="${repo.repository}"></td>
+        <td th:text="${#temporals.format(repo.creationTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${#temporals.format(repo.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

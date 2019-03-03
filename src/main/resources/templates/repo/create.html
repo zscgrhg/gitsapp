@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>new Repo</title>
+</head>
+<body>
+<h1>create</h1>
+<form action="#" th:action="@{/repo/create}" th:object="${repoModel}" method="post">
+    <p>name: <input type="text" th:field="*{name}" /></p>
+    <p>group: <input type="text" th:field="*{group}" /></p>
+    <p>repository: <input type="text" th:field="*{repository}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>

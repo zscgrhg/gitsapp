@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>GitEasier</title>
+</head>
+<body>
+<h1>Groups</h1>
+<table>
+    <tr>
+        <td><p><a  href="create.html" th:href="@{/repo/create}">add</a></p></td>
+    </tr>
+</table>
+<table style="width: 100%;text-align: left">
+    <tr>
+        <th>NAME</th>
+    </tr>
+    <tr th:each="rGroup : ${rGroupList}">
+        <td>
+            <a  th:href="@{/repo/list/{g}(g=${rGroup})}"><em th:text="${rGroup}"></em></a>
+        </td>
+
+    </tr>
+</table>
+</body>
+</html>
